@@ -14,19 +14,18 @@ my_bot = Bot(max_followers_to_follow=500, max_follows_per_day=1000)
 # login
 my_bot.login(username="jorjor", password="12345")
 
-# Method 1
-# DM the followers of the user
 
-follower_ids =  my_bot.get_user_followers(target_user_name)
-print(follower_ids)
+# Method 2
+# DM the likers (engaging people) of the user
 
-for count, each_follower in enumerate(follower_ids):
-    print("follow/dm number:", count)
+liker_ids = my_bot.get_user_likers(target_user_name)
+
+for count, each_liker in enumerate(liker_ids):
     if count > total_dms:
         break
-    my_bot.follow(each_follower)
+    my_bot.follow(each_liker)
     sleep(5)
-    username = my_bot.get_username_from_user_id(each_follower)
+    username = my_bot.get_username_from_user_id(each_liker)
     message_text = f"Hi {username},  are you interested in python programming?\\n You can learn with me!"
     my_bot.send_message(message_text, [username])
     sleep(20)
